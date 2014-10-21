@@ -19,7 +19,7 @@
 
 
 template <class entity_type>
-class StateMachine
+class StateMachine : public State
 {
 private:
 

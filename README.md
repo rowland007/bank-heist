@@ -1,6 +1,6 @@
 #About:
 
-This is the Final Project for American Sentinel University's GP435 Artificail Intelligence for Gaming course.
+This is the Final Project for American Sentinel University's GP435 Artificial Intelligence for Gaming course.
 -------------------------------------------------------------------
 #Goal:
 
