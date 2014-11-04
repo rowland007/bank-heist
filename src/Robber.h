@@ -1,10 +1,25 @@
-/*
- * Robber.h
- *
- *  Created on: Nov 3, 2014
- *      Author: rowland007
- */
+ /************************************************************************
+   Program: Bank Heist
+   Author: Randall D. Rowland Jr.
+   Class: Robber
+   Instructor:
+   Date: 30 October 2014
+   Description:
+   Input:
+   Output:
+   Compilation instructions:
+   Usage:
+   Known bugs/missing features:
 
+   This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+   International Public License. To view a copy of this license, visit
+   https://creativecommons.org/licenses/by-nc-sa/4.0/ or send a letter to Creative
+   Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+   Modifications:
+   Date                Comment
+   ----    ------------------------------------------------
+ ************************************************************************/
 #ifndef ROBBER_H_
 #define ROBBER_H_
 
