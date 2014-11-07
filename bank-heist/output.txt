@@ -1,0 +1,106 @@
+
+Robber: Stashing the money. Total savings now: 0
+Robber: I'm getting bored here in the safe house.
+Robber: Let's go rob a bank!
+Cop: WE CAUGHT HIM!
+Cop: You're sentenced to life in prison!
+Cop: You're never robbing banks again! GAME OVER
+Cop: Let's catch this robber!
+Teller: Call for backup!
+Robber: Give me all your money!
+Cop: This could be a high speed pursuit.
+Teller: Call for backup!
+Robber: Give me all your money!
+Cop: Which bank is he robbing?
+Teller: Which bank is he robbing?
+Robber: Give me all your money!
+Robber: That's enough money for now. Need to get out of here before the cops sho
+w up.
+Robber: Need to get to the safe house!
+Cop: Call for backup!
+Teller: Call for backup!
+Robber: Stashing the money. Total savings now: 3
+Robber: I'm getting bored here in the safe house.
+Robber: Let's go rob a bank!
+Cop: This could be a high speed pursuit.
+Teller: Which bank is he robbing?
+Robber: Give me all your money!
+Cop: Call for backup!
+Teller: This could be a high speed pursuit.
+Robber: Give me all your money!
+Cop: Which bank is he robbing?
+Teller: Which bank is he robbing?
+Robber: Give me all your money!
+Robber: That's enough money for now. Need to get out of here before the cops sho
+w up.
+Robber: Need to get to the safe house!
+Cop: Which bank is he robbing?
+Teller: Call for backup!
+Robber: Stashing the money. Total savings now: 6
+Robber: Rich enough for now. Let's just chill here until the heat dies down
+Robber: I'm getting bored here in the safe house.
+Cop: WE CAUGHT HIM!
+Cop: You're sentenced to life in prison!
+Cop: You're never robbing banks again! GAME OVER
+Cop: Let's catch this robber!
+Teller: This could be a high speed pursuit.
+Robber: Stashing the money. Total savings now: 6
+Robber: Rich enough for now. Let's just chill here until the heat dies down
+Robber: I'm getting bored here in the safe house.
+Cop: Which bank is he robbing?
+Teller: Call for backup!
+Robber: Stashing the money. Total savings now: 6
+Robber: Rich enough for now. Let's just chill here until the heat dies down
+Robber: I'm getting bored here in the safe house.
+Cop: Call for backup!
+Teller: Call for backup!
+Robber: Stashing the money. Total savings now: 6
+Robber: Rich enough for now. Let's just chill here until the heat dies down
+Robber: I'm getting bored here in the safe house.
+Cop: Call for backup!
+Teller: Which bank is he robbing?
+Robber: Stashing the money. Total savings now: 6
+Robber: Rich enough for now. Let's just chill here until the heat dies down
+Robber: I'm getting bored here in the safe house.
+Cop: WE CAUGHT HIM!
+Cop: You're sentenced to life in prison!
+Cop: You're never robbing banks again! GAME OVER
+Cop: Let's catch this robber!
+Teller: This could be a high speed pursuit.
+Robber: Stashing the money. Total savings now: 6
+Robber: Rich enough for now. Let's just chill here until the heat dies down
+Robber: I'm getting bored here in the safe house.
+Cop: This could be a high speed pursuit.
+Teller: This could be a high speed pursuit.
+Robber: Stashing the money. Total savings now: 6
+Robber: Rich enough for now. Let's just chill here until the heat dies down
+Robber: I'm getting bored here in the safe house.
+Cop: Call for backup!
+Teller: Which bank is he robbing?
+Robber: Stashing the money. Total savings now: 6
+Robber: Rich enough for now. Let's just chill here until the heat dies down
+Robber: I'm getting bored here in the safe house.
+Cop: Which bank is he robbing?
+Teller: Which bank is he robbing?
+Robber: Stashing the money. Total savings now: 6
+Robber: Rich enough for now. Let's just chill here until the heat dies down
+Robber: I'm getting bored here in the safe house.
+Cop: Which bank is he robbing?
+Teller: This could be a high speed pursuit.
+Robber: Stashing the money. Total savings now: 6
+Robber: Rich enough for now. Let's just chill here until the heat dies down
+Robber: I'm getting bored here in the safe house.
+Cop: This could be a high speed pursuit.
+Teller: Call for backup!
+Robber: Stashing the money. Total savings now: 6
+Robber: Rich enough for now. Let's just chill here until the heat dies down
+Robber: I'm getting bored here in the safe house.
+Cop: This could be a high speed pursuit.
+Teller: Which bank is he robbing?
+Robber: Stashing the money. Total savings now: 6
+Robber: Rich enough for now. Let's just chill here until the heat dies down
+Robber: I'm getting bored here in the safe house.
+Cop: This could be a high speed pursuit.
+Teller: Call for backup!
+
+Press any key to continue
