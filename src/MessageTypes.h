@@ -5,8 +5,8 @@
 
 enum message_type
 {
-  Msg_HiHoneyImHome,
-  Msg_StewReady,
+  Msg_ThisIsAStickUp,
+  Msg_StopPolice,
 };
 
 
@@ -14,13 +14,13 @@ inline std::string MsgToStr(int msg)
 {
   switch (msg)
   {
-  case Msg_HiHoneyImHome:
+  case Msg_ThisIsAStickUp:
 
-    return "HiHoneyImHome";
+    return "Give me all your money! This is a stick up!";
 
-  case Msg_StewReady:
+  case Msg_StopPolice:
 
-    return "StewReady";
+    return "Freeze! Police! You're busted!";
 
   default:
 

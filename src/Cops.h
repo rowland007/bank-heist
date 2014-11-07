@@ -60,7 +60,7 @@ public:
     //set up the state machine
     m_pStateMachine = new StateMachine<Cops>(this);
 
-    m_pStateMachine->SetCurrentState(CaughtRobber::Instance());
+    m_pStateMachine->SetCurrentState(ChaseRobber::Instance());
 
     m_pStateMachine->SetGlobalState(CopsGlobalState::Instance());
   }
