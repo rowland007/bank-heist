@@ -41,271 +41,158 @@ extern std::ofstream os;
 #endif
 
 
-//------------------------------------------------------------------------methods for EnterMineAndDigForNugget
-EnterMineAndDigForNugget* EnterMineAndDigForNugget::Instance()
+//------------------------------------------------------------------------methods for EnterBankAndRobTellers
+EnterBankAndRobTellers* EnterBankAndRobTellers::Instance()
 {
-  static EnterMineAndDigForNugget instance;
+  static EnterBankAndRobTellers instance;
 
   return &instance;
 }
 
 
-void EnterMineAndDigForNugget::Enter(Robber* pRobber)
+void EnterBankAndRobTellers::Enter(Robber* pRobber)
 {
-  //if the Robber is not already located at the goldmine, he must
-  //change location to the gold mine
+  //if the Robber is not already located at the bank, he must
+  //change location to the bank
   if (pRobber->Location() != bank)
   {
-    cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "Walkin' to the goldmine";
+    cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "Let's go rob a bank!";
 
     pRobber->ChangeLocation(bank);
   }
 }
 
 
-void EnterMineAndDigForNugget::Execute(Robber* pRobber)
+void EnterBankAndRobTellers::Execute(Robber* pRobber)
 {
-  //Now the Robber is at the goldmine he digs for gold until he
-  //is carrying in excess of MaxNuggets. If he gets thirsty during
-  //his digging he packs up work for a while and changes state to
-  //gp to the saloon for a whiskey.
-  pRobber->AddToGoldCarried(1);
+  //Now the Robber is at the bank he robs tellers until he
+  //is carrying in excess of MaxMoney. If the heat gets too high during
+  //his robbing he leaves to not get caught by the cops.
+  pRobber->AddToMoneyCarried(1);
 
-  pRobber->IncreaseFatigue();
+  cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "Give me all your money!";
 
-  cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "Pickin' up a nugget";
-
-  //if enough gold mined, go and put it in the bank
+  //if enough money, go and put it in the safe house
   if (pRobber->PocketsFull())
   {
-    pRobber->GetFSM()->ChangeState(VisitBankAndDepositGold::Instance());
+    pRobber->GetFSM()->ChangeState(GoToSafeHouse::Instance());
   }
 
-  if (pRobber->Thirsty())
+  if (pRobber->Heat())
   {
-    pRobber->GetFSM()->ChangeState(QuenchThirst::Instance());
+    pRobber->GetFSM()->ChangeState(GotCaughtAndGoToJail::Instance());
   }
 }
 
 
-void EnterMineAndDigForNugget::Exit(Robber* pRobber)
+void EnterBankAndRobTellers::Exit(Robber* pRobber)
 {
   cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": "
-       << "Ah'm leavin' the goldmine with mah pockets full o' sweet gold";
+       << "That's enough money for now. Need to get out of here before the cops show up.";
 }
 
 
-bool EnterMineAndDigForNugget::OnMessage(Robber* pRobber, const Telegram& msg)
+bool EnterBankAndRobTellers::OnMessage(Robber* pRobber, const Telegram& msg)
 {
   //send msg to global message handler
   return false;
 }
 
-//------------------------------------------------------------------------methods for VisitBankAndDepositGold
+//------------------------------------------------------------------------methods for GoToSafeHouse
 
-VisitBankAndDepositGold* VisitBankAndDepositGold::Instance()
+GoToSafeHouse* GoToSafeHouse::Instance()
 {
-  static VisitBankAndDepositGold instance;
+  static GoToSafeHouse instance;
 
   return &instance;
 }
 
-void VisitBankAndDepositGold::Enter(Robber* pRobber)
+void GoToSafeHouse::Enter(Robber* pRobber)
 {
-  //on entry the Robber makes sure he is located at the bank
-  if (pRobber->Location() != bank)
+  //on entry the Robber makes sure he is located at the safe house
+  if (pRobber->Location() != safehouse)
   {
-    cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "Goin' to the bank. Yes siree";
+    cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "Need to get to the safe house!";
 
-    pRobber->ChangeLocation(bank);
+    pRobber->ChangeLocation(safehouse);
   }
 }
 
 
-void VisitBankAndDepositGold::Execute(Robber* pRobber)
+void GoToSafeHouse::Execute(Robber* pRobber)
 {
-  //deposit the gold
-  pRobber->AddToWealth(pRobber->GoldCarried());
+  //deposit the money
+  pRobber->AddToWealth(pRobber->MoneyCarried());
 
-  pRobber->SetGoldCarried(0);
+  pRobber->SetMoneyCarried(0);
 
   cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": "
-       << "Depositing gold. Total savings now: "<< pRobber->Wealth();
+       << "Stashing the money. Total savings now: "<< pRobber->Wealth();
 
   //wealthy enough to have a well earned rest?
   if (pRobber->Wealth() >= ComfortLevel)
   {
     cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": "
-         << "WooHoo! Rich enough for now. Back home to mah li'lle lady";
+         << "Rich enough for now. Let's just chill here until the heat dies down";
 
-    pRobber->GetFSM()->ChangeState(GoHomeAndSleepTilRested::Instance());
+    pRobber->GetFSM()->ChangeState(GoToSafeHouse::Instance());
   }
 
-  //otherwise get more gold
+  //otherwise get more money
   else
   {
-    pRobber->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());
+    pRobber->GetFSM()->ChangeState(EnterBankAndRobTellers::Instance());
   }
 }
 
 
-void VisitBankAndDepositGold::Exit(Robber* pRobber)
+void GoToSafeHouse::Exit(Robber* pRobber)
 {
-  cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "Leavin' the bank";
+  cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "I'm getting bored here in the safe house.";
 }
 
 
-bool VisitBankAndDepositGold::OnMessage(Robber* pRobber, const Telegram& msg)
-{
-  //send msg to global message handler
-  return false;
-}
-//------------------------------------------------------------------------methods for GoHomeAndSleepTilRested
-
-GoHomeAndSleepTilRested* GoHomeAndSleepTilRested::Instance()
-{
-  static GoHomeAndSleepTilRested instance;
-
-  return &instance;
-}
-
-void GoHomeAndSleepTilRested::Enter(Robber* pRobber)
-{
-  if (pRobber->Location() != safehouse)
-  {
-    cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "Walkin' home";
-
-    pRobber->ChangeLocation(safehouse);
-
-    //let the wife know I'm home
-    Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
-                              pRobber->ID(),        //ID of sender
-                              ent_Elsa,            //ID of recipient
-                              Msg_HiHoneyImHome,   //the message
-                              NO_ADDITIONAL_INFO);
-  }
-}
-
-void GoHomeAndSleepTilRested::Execute(Robber* pRobber)
-{
-  //if Robber is not fatigued start to dig for nuggets again.
-  if (!pRobber->Fatigued())
-  {
-     cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": "
-          << "All mah fatigue has drained away. Time to find more gold!";
-
-     pRobber->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());
-  }
-
-  else
-  {
-    //sleep
-    pRobber->DecreaseFatigue();
-
-    cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "ZZZZ... ";
-  }
-}
-
-void GoHomeAndSleepTilRested::Exit(Robber* pRobber)
-{
-}
-
-
-bool GoHomeAndSleepTilRested::OnMessage(Robber* pRobber, const Telegram& msg)
-{
-   SetTextColor(BACKGROUND_RED|FOREGROUND_RED|FOREGROUND_GREEN|FOREGROUND_BLUE);
-
-   switch(msg.Msg)
-   {
-   case Msg_StewReady:
-
-     cout << "\nMessage handled by " << GetNameOfEntity(pRobber->ID())
-     << " at time: " << Clock->GetCurrentTime();
-
-     SetTextColor(FOREGROUND_RED|FOREGROUND_INTENSITY);
-
-     cout << "\n" << GetNameOfEntity(pRobber->ID())
-          << ": Okay Hun, ahm a comin'!";
-
-     pRobber->GetFSM()->ChangeState(EatStew::Instance());
-
-     return true;
-
-   }//end switch
-
-   return false; //send message to global message handler
-}
-
-//------------------------------------------------------------------------QuenchThirst
-
-QuenchThirst* QuenchThirst::Instance()
-{
-  static QuenchThirst instance;
-
-  return &instance;
-}
-
-void QuenchThirst::Enter(Robber* pRobber)
-{
-  if (pRobber->Location() != saloon)
-  {
-    pRobber->ChangeLocation(saloon);
-
-    cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "Boy, ah sure is thusty! Walking to the saloon";
-  }
-}
-
-void QuenchThirst::Execute(Robber* pRobber)
-{
-  pRobber->BuyAndDrinkAWhiskey();
-
-  cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "That's mighty fine sippin' liquer";
-
-  pRobber->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());
-}
-
-
-void QuenchThirst::Exit(Robber* pRobber)
-{
-  cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "Leaving the saloon, feelin' good";
-}
-
-
-bool QuenchThirst::OnMessage(Robber* pRobber, const Telegram& msg)
+bool GoToSafeHouse::OnMessage(Robber* pRobber, const Telegram& msg)
 {
   //send msg to global message handler
   return false;
 }
 
-//------------------------------------------------------------------------EatStew
 
-EatStew* EatStew::Instance()
+//------------------------------------------------------------------------GotCaughtAndGoToJail
+
+GotCaughtAndGoToJail* GotCaughtAndGoToJail::Instance()
 {
-  static EatStew instance;
+  static GotCaughtAndGoToJail instance;
 
   return &instance;
 }
 
-
-void EatStew::Enter(Robber* pRobber)
+void GotCaughtAndGoToJail::Enter(Robber* pRobber)
 {
-  cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "Smells Reaaal goood Elsa!";
+  if (pRobber->Location() != jail)
+  {
+    pRobber->ChangeLocation(jail);
+
+    cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "Oh man, the 5-O!";
+  }
 }
 
-void EatStew::Execute(Robber* pRobber)
+void GotCaughtAndGoToJail::Execute(Robber* pRobber)
 {
-  cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "Tastes real good too!";
+  cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "Sentenced to life in prison.";
 
-  pRobber->GetFSM()->RevertToPreviousState();
-}
-
-void EatStew::Exit(Robber* pRobber)
-{
-  cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "Thankya li'lle lady. Ah better get back to whatever ah wuz doin'";
+  pRobber->GetFSM()->ChangeState(EnterBankAndRobTellers::Instance());
 }
 
 
-bool EatStew::OnMessage(Robber* pRobber, const Telegram& msg)
+void GotCaughtAndGoToJail::Exit(Robber* pRobber)
+{
+  cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "No more robbing banks. GAME OVER";
+}
+
+
+bool GotCaughtAndGoToJail::OnMessage(Robber* pRobber, const Telegram& msg)
 {
   //send msg to global message handler
   return false;

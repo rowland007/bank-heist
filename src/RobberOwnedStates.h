@@ -34,25 +34,25 @@ struct Telegram;
 
 //------------------------------------------------------------------------
 //
-//  In this state the robber will walk to a bank and pick up a nugget
-//  of gold. If the robber already has a nugget of gold he'll change state
-//  to VisitBankAndDepositgold. If he gets thirsty he'll change state
-//  to QuenchThirst
+//  In this state the robber will walk to a bank and rob the bank tellers
+//  for money. If the robber already has enough money he'll change state
+//  to GoToSafeHouse. If the heat gets too intense he'll change state
+//  to GoToSafeHouse
 //------------------------------------------------------------------------
-class EnterMineAndDigForNugget : public State<Robber>
+class EnterBankAndRobTellers : public State<Robber>
 {
 private:
 
-  EnterMineAndDigForNugget(){}
+  EnterBankAndRobTellers(){}
 
   //copy ctor and assignment should be private
-  EnterMineAndDigForNugget(const EnterMineAndDigForNugget&);
-  EnterMineAndDigForNugget& operator=(const EnterMineAndDigForNugget&);
+  EnterBankAndRobTellers(const EnterBankAndRobTellers&);
+  EnterBankAndRobTellers& operator=(const EnterBankAndRobTellers&);
 
 public:
 
   //this is a singleton
-  static EnterMineAndDigForNugget* Instance();
+  static EnterBankAndRobTellers* Instance();
 
   virtual void Enter(Robber* robber);
 
@@ -66,24 +66,24 @@ public:
 
 //------------------------------------------------------------------------
 //
-//  Entity will go to a bank and deposit any bags of money he is carrying. If the
-//  robber is subsequently wealthy enough he'll walk home, otherwise he'll
-//  keep going to get more
+//  Entity will go to the safe house and store any bags of money he is carrying.
+//  If the robber is subsequently wealthy enough he'll stay at the safe house home,
+//  otherwise he'll keep robbing banks.
 //------------------------------------------------------------------------
-class VisitBankAndDepositgold : public State<Robber>
+class GoToSafeHouse : public State<Robber>
 {
 private:
 
-  VisitBankAndDepositgold(){}
+  GoToSafeHouse(){}
 
   //copy ctor and assignment should be private
-  VisitBankAndDepositgold(const VisitBankAndDepositgold&);
-  VisitBankAndDepositgold& operator=(const VisitBankAndDepositgold&);
+  GoToSafeHouse(const GoToSafeHouse&);
+  GoToSafeHouse& operator=(const GoToSafeHouse&);
 
 public:
 
   //this is a singleton
-  static VisitBankAndDepositgold* Instance();
+  static GoToSafeHouse* Instance();
 
   virtual void Enter(Robber* robber);
 
@@ -94,87 +94,24 @@ public:
   virtual bool OnMessage(Robber* agent, const Telegram& msg);
 };
 
-
 //------------------------------------------------------------------------
 //
-//  robber will go home and sleep until his fatigue is decreased
-//  sufficiently
+//  robber changes location to the jail and game ends until
 //------------------------------------------------------------------------
-class GoHomeAndSleepTilRested : public State<Robber>
+class GotCaughtAndGoToJail : public State<Robber>
 {
 private:
 
-  GoHomeAndSleepTilRested(){}
+  GotCaughtAndGoToJail(){}
 
   //copy ctor and assignment should be private
-  GoHomeAndSleepTilRested(const GoHomeAndSleepTilRested&);
-  GoHomeAndSleepTilRested& operator=(const GoHomeAndSleepTilRested&);
+  GotCaughtAndGoToJail(const GotCaughtAndGoToJail&);
+  GotCaughtAndGoToJail& operator=(const GotCaughtAndGoToJail&);
 
 public:
 
   //this is a singleton
-  static GoHomeAndSleepTilRested* Instance();
-
-  virtual void Enter(Robber* robber);
-
-  virtual void Execute(Robber* robber);
-
-  virtual void Exit(Robber* robber);
-
-  virtual bool OnMessage(Robber* agent, const Telegram& msg);
-};
-
-
-//------------------------------------------------------------------------
-//
-//  robber changes location to the saloon and keeps buying Whiskey until
-//  his thirst is quenched. When satisfied he returns to the bank
-//  and resumes his quest for bags of money.
-//------------------------------------------------------------------------
-class QuenchThirst : public State<Robber>
-{
-private:
-
-  QuenchThirst(){}
-
-  //copy ctor and assignment should be private
-  QuenchThirst(const QuenchThirst&);
-  QuenchThirst& operator=(const QuenchThirst&);
-
-public:
-
-  //this is a singleton
-  static QuenchThirst* Instance();
-
-  virtual void Enter(Robber* robber);
-
-  virtual void Execute(Robber* robber);
-
-  virtual void Exit(Robber* robber);
-
-  virtual bool OnMessage(Robber* agent, const Telegram& msg);
-};
-
-
-//------------------------------------------------------------------------
-//
-//  this is implemented as a state blip. The robber eats the stew, gives
-//  Elsa some compliments and then returns to his previous state
-//------------------------------------------------------------------------
-class EatStew : public State<Robber>
-{
-private:
-
-  EatStew(){}
-
-  //copy ctor and assignment should be private
-  EatStew(const EatStew&);
-  EatStew& operator=(const EatStew&);
-
-public:
-
-  //this is a singleton
-  static EatStew* Instance();
+  static GotCaughtAndGoToJail* Instance();
 
   virtual void Enter(Robber* robber);
 

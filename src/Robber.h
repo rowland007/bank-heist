@@ -37,14 +37,12 @@ template <class entity_type> class State; //pre-fixed with "template <class enti
 
 struct Telegram;
 
-//the amount of gold a miner must have before he feels he can go home
+//the amount of money robber must have before he can go to safehouse
 const int ComfortLevel       = 5;
-//the amount of nuggets a miner can carry
-const int MaxNuggets         = 3;
-//above this value a miner is thirsty
-const int ThirstLevel        = 5;
-//above this value a miner is sleepy
-const int TirednessThreshold = 5;
+//the amount of money robber can carry
+const int MaxMoney         = 3;
+//above this value the cops show up
+const int HeatLevel        = 10;
 
 class Robber : public BaseGameEntity
 {
@@ -55,31 +53,27 @@ private:
 
   location_type         m_Location;
 
-  //how many nuggets the miner has in his pockets
-  int                   m_iGoldCarried;
+  //how many money bags the robber has
+  int                   m_iMoneyCarried;
 
-  int                   m_iMoneyInBank;
+  int                   m_iMoneyAtSafehouse;
 
-  //the higher the value, the thirstier the miner
-  int                   m_iThirst;
-
-  //the higher the value, the more tired the miner
-  int                   m_iFatigue;
+  //the higher the value, the more heat on the robber
+  int                   m_iHeat;
 
 public:
 
   Robber(int id):m_Location(safehouse),
-                          m_iGoldCarried(0),
-                          m_iMoneyInBank(0),
-                          m_iThirst(0),
-                          m_iFatigue(0),
+                          m_iMoneyCarried(0),
+                          m_iMoneyAtSafehouse(0),
+                          m_iHeat(0),
                           BaseGameEntity(id)
 
   {
     //set up state machine
     m_pStateMachine = new StateMachine<Robber>(this);
 
-    m_pStateMachine->SetCurrentState(GoHomeAndSleepTilRested::Instance());
+    m_pStateMachine->SetCurrentState(GoToSafeHouse::Instance());
 
     /* NOTE, A GLOBAL STATE HAS NOT BEEN IMPLEMENTED FOR THE MINER */
   }
@@ -100,21 +94,16 @@ public:
   //-------------------------------------------------------------accessors
   location_type Location()const{return m_Location;}
   void          ChangeLocation(location_type loc){m_Location=loc;}
-  int           GoldCarried()const{return m_iGoldCarried;}
-  void          SetGoldCarried(int val){m_iGoldCarried = val;}
-  void          AddToGoldCarried(int val);
-  bool          PocketsFull()const{return m_iGoldCarried >= MaxNuggets;}
+  int           MoneyCarried()const{return m_iMoneyCarried;}
+  void          SetMoneyCarried(int val){m_iMoneyCarried = val;}
+  void          AddToMoneyCarried(int val);
+  bool          PocketsFull()const{return m_iMoneyCarried >= MaxMoney;}
 
-  bool          Fatigued()const;
-  void          DecreaseFatigue(){m_iFatigue -= 1;}
-  void          IncreaseFatigue(){m_iFatigue += 1;}
-  int           Wealth()const{return m_iMoneyInBank;}
-  void          SetWealth(int val){m_iMoneyInBank = val;}
+  int           Wealth()const{return m_iMoneyAtSafehouse;}
+  void          SetWealth(int val){m_iMoneyAtSafehouse = val;}
   void          AddToWealth(int val);
 
-  bool          Thirsty()const;
-  void          BuyAndDrinkAWhiskey(){m_iThirst = 0; m_iMoneyInBank-=2;}
-
+  bool          Heat()const;
 };
 
 #endif /* ROBBER_H_ */

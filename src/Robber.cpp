@@ -32,40 +32,30 @@ void Robber::Update()
 {
   SetTextColor(FOREGROUND_RED| FOREGROUND_INTENSITY);
 
-  m_iThirst += 1;
+  m_iHeat += 1;
 
   m_pStateMachine->Update();
 }
 
 
 
-void Robber::AddToGoldCarried(const int val)
+void Robber::AddToMoneyCarried(const int val)
 {
-  m_iGoldCarried += val;
+  m_iMoneyCarried += val;
 
-  if (m_iGoldCarried < 0) m_iGoldCarried = 0;
+  if (m_iMoneyCarried < 0) m_iMoneyCarried = 0;
 }
 
 void Robber::AddToWealth(const int val)
 {
-  m_iMoneyInBank += val;
+  m_iMoneyAtSafehouse += val;
 
-  if (m_iMoneyInBank < 0) m_iMoneyInBank = 0;
+  if (m_iMoneyAtSafehouse < 0) m_iMoneyAtSafehouse = 0;
 }
 
-bool Robber::Thirsty()const
+bool Robber::Heat()const
 {
-  if (m_iThirst >= ThirstLevel){return true;}
-
-  return false;
-}
-
-bool Robber::Fatigued()const
-{
-  if (m_iFatigue > TirednessThreshold)
-  {
-    return true;
-  }
+  if (m_iHeat >= HeatLevel){return true;}
 
   return false;
 }
