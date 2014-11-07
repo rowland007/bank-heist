@@ -19,6 +19,7 @@
  Modifications:
  Date                Comment
  ----    ------------------------------------------------
+7NOV14	 Corrected CopsGlobalState to use ChaseRobber.
  ************************************************************************/
 
 #include "CopsOwnedStates.h"
@@ -51,12 +52,11 @@ CopsGlobalState* CopsGlobalState::Instance()
 
 void CopsGlobalState::Execute(Cops* cop)
 {
-  //1 in 10 chance of needing the bathroom (provided she is not already
-  //in the bathroom)
+  //1 in 10 chance of needing to do this
   if ( (RandFloat() < 0.1) &&
-       !cop->GetFSM()->isInState(*CaughtRobber::Instance()) )
+       !cop->GetFSM()->isInState(*ChaseRobber::Instance()) )
   {
-    cop->GetFSM()->ChangeState(CaughtRobber::Instance());
+    cop->GetFSM()->ChangeState(ChaseRobber::Instance());
   }
 }
 

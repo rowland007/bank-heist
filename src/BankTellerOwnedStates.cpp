@@ -19,6 +19,7 @@
  Modifications:
  Date                Comment
  ----    ------------------------------------------------
+7NOV14	 Corrected Tellers output text.
  ************************************************************************/
 
 #include "BankTeller.h"
@@ -97,7 +98,7 @@ BankTellerDoingBankThings* BankTellerDoingBankThings::Instance()
 
 void BankTellerDoingBankThings::Enter(BankTeller* teller)
 {
-  cout << "\n" << GetNameOfEntity(teller->ID()) << ": Let's catch this robber!";
+  cout << "\n" << GetNameOfEntity(teller->ID()) << ": Money! Money! Money!";
 }
 
 
@@ -107,19 +108,19 @@ void BankTellerDoingBankThings::Execute(BankTeller* teller)
   {
   case 0:
 
-    cout << "\n" << GetNameOfEntity(teller->ID()) << ": Which bank is he robbing?";
+    cout << "\n" << GetNameOfEntity(teller->ID()) << ": Let me deposit this check.";
 
     break;
 
   case 1:
 
-    cout << "\n" << GetNameOfEntity(teller->ID()) << ": This could be a high speed pursuit.";
+    cout << "\n" << GetNameOfEntity(teller->ID()) << ": I need to refill my cash drawer.";
 
     break;
 
   case 2:
 
-    cout << "\n" << GetNameOfEntity(teller->ID()) << ": Call for backup!";
+    cout << "\n" << GetNameOfEntity(teller->ID()) << ": Next in line please!";
 
     break;
   }
