@@ -20,6 +20,7 @@
    Date                Comment
    ----    ------------------------------------------------
  20OCT14	Modified the names from example and added two
+ 6NOV14		Removed bystander
  ************************************************************************/
 
 #ifndef NAMES_H
@@ -32,7 +33,6 @@ enum
   ent_Robber,
   ent_Cop,
   ent_Teller,
-  ent_Bystander
 };
 
 inline std::string GetNameOfEntity(int n)
@@ -50,10 +50,6 @@ inline std::string GetNameOfEntity(int n)
   case ent_Teller:
 
 	  return "Teller";
-
-  case ent_Bystander:
-
-	  return "Bystander";
 
   default:
 

@@ -1,7 +1,8 @@
 #include <fstream>
 #include "Locations.h"
-#include "Miner.h"
-#include "MinersWife.h"
+#include "Robber.h"
+#include "Cops.h"
+#include "BankTeller.h"
 #include "misc/ConsoleUtils.h"
 #include "EntityNames.h"
 
@@ -16,17 +17,21 @@ int main()
   os.open("output.txt");
 #endif
 
-  //create a miner
-  Miner Bob(ent_Miner_Bob);
+  //create a robber
+  Robber robber(ent_Robber);
 
-  //create his wife
-  MinersWife Elsa(ent_Elsa);
+  //create cops
+  Cops cop(ent_Cop);
+
+  //create bank tellers
+  BankTeller teller(ent_Teller);
 
   //run Bob and Elsa through a few Update calls
   for (int i=0; i<20; ++i)
   { 
-    Bob.Update();
-    Elsa.Update();
+    robber.Update();
+    cop.Update();
+    teller.Update();
 
     Sleep(800);
   }
