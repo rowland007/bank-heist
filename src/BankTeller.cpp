@@ -21,7 +21,7 @@
  ----    ------------------------------------------------
  ************************************************************************/
 
-#include "src/BankTeller.h"
+#include "BankTeller.h"
 
 bool BankTeller::HandleMessage(const Telegram& msg)
 {
