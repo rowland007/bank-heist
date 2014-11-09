@@ -20,6 +20,7 @@
  Date                Comment
  ----    ------------------------------------------------
 7NOV14	 Corrected Tellers output text.
+9NOV2014 Added message handling so teller know when getting robbed.
  ************************************************************************/
 
 #include "BankTeller.h"

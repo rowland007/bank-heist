@@ -19,6 +19,7 @@
  Modifications:
  Date                Comment
  ----    ------------------------------------------------
+9NOV2014 Add chill functions.
  ************************************************************************/
 
 #ifndef COPSOWNEDSTATES_H_
@@ -105,6 +106,33 @@ public:
 
   //this is a singleton
   static ChaseRobber* Instance();
+
+  virtual void Enter(Cops* cop);
+
+  virtual void Execute(Cops* cop);
+
+  virtual void Exit(Cops* cop);
+
+  virtual bool OnMessage(Cops* cop, const Telegram& msg);
+};
+
+//------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------
+class Chill : public State<Cops>
+{
+private:
+
+  Chill(){}
+
+  //copy ctor and assignment should be private
+  Chill(const ChaseRobber&);
+  Chill& operator=(const Chill&);
+
+public:
+
+  //this is a singleton
+  static Chill* Instance();
 
   virtual void Enter(Cops* cop);
 

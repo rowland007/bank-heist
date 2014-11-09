@@ -19,6 +19,8 @@
  Modifications:
  Date                Comment
  ----    ------------------------------------------------
+9NOV2014 Added a message dispatch to be sent to tellers and cops.
+9NOV2014 Added Message handling from cops to change state.
  ************************************************************************/
 #include "RobberOwnedStates.h"
 #include "FSM/State.h"
@@ -59,6 +61,18 @@ void EnterBankAndRobTellers::Enter(Robber* pRobber)
     cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "Let's go rob a bank!";
 
     pRobber->ChangeLocation(bank);
+
+    Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+                                 pRobber->ID(),        //ID of sender
+                                 ent_Teller,            //ID of recipient
+                                 Msg_ThisIsAStickUp,   //the message
+                                 NO_ADDITIONAL_INFO);
+
+    Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+                                 pRobber->ID(),        //ID of sender
+                                 ent_Cop,            //ID of recipient
+                                 Msg_ThisIsAStickUp,   //the message
+                                 NO_ADDITIONAL_INFO);
   }
 }
 
@@ -94,7 +108,12 @@ void EnterBankAndRobTellers::Exit(Robber* pRobber)
 
 bool EnterBankAndRobTellers::OnMessage(Robber* pRobber, const Telegram& msg)
 {
-  //send msg to global message handler
+  switch(msg.Msg)
+  {
+  case Msg_StopPolice:
+  {
+	  pRobber->GetFSM()->ChangeState(GotCaughtAndGoToJail::Instance());
+  }
   return false;
 }
 
@@ -189,6 +208,11 @@ void GotCaughtAndGoToJail::Execute(Robber* pRobber)
 void GotCaughtAndGoToJail::Exit(Robber* pRobber)
 {
   cout << "\n" << GetNameOfEntity(pRobber->ID()) << ": " << "No more robbing banks. GAME OVER";
+
+  //wait for a keypress before exiting
+  PressAnyKeyToContinue();
+
+  return 0;
 }
 
 

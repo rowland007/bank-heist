@@ -20,6 +20,8 @@
  Date                Comment
  ----    ------------------------------------------------
 7NOV14	 Corrected CopsGlobalState to use ChaseRobber.
+9NOV14	 Added Chill functions.
+9NOV14   Added msg handling when robbery in progress.
  ************************************************************************/
 
 #include "CopsOwnedStates.h"
@@ -52,12 +54,7 @@ CopsGlobalState* CopsGlobalState::Instance()
 
 void CopsGlobalState::Execute(Cops* cop)
 {
-  //1 in 10 chance of needing to do this
-  if ( (RandFloat() < 0.1) &&
-       !cop->GetFSM()->isInState(*ChaseRobber::Instance()) )
-  {
-    cop->GetFSM()->ChangeState(ChaseRobber::Instance());
-  }
+    cop->GetFSM()->ChangeState(Chill::Instance());
 }
 
 bool CopsGlobalState::OnMessage(Cops* cop, const Telegram& msg)
@@ -148,6 +145,13 @@ CaughtRobber* CaughtRobber::Instance()
 void CaughtRobber::Enter(Cops* cop)
 {
   cout << "\n" << GetNameOfEntity(cop->ID()) << ": WE CAUGHT HIM!";
+
+
+  Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY,   //time delay
+                                pCops->ID(),        //ID of sender
+                                ent_Robber,         //ID of recipient
+                                Msg_StopPolice,     //the message
+                                NO_ADDITIONAL_INFO);
 }
 
 
@@ -155,7 +159,6 @@ void CaughtRobber::Execute(Cops* cop)
 {
   cout << "\n" << GetNameOfEntity(cop->ID()) << ": You're sentenced to life in prison!";
 
-  cop->GetFSM()->RevertToPreviousState();
 }
 
 void CaughtRobber::Exit(Cops* cop)
@@ -165,6 +168,55 @@ void CaughtRobber::Exit(Cops* cop)
 
 
 bool CaughtRobber::OnMessage(Cops* cop, const Telegram& msg)
+{
+  return false;
+}
+
+//-------------------------------------------------------------------------Chill
+
+Chill* Chill::Instance()
+{
+  static Chill instance;
+
+  return &instance;
+}
+
+
+void Chill::Enter(Cops* cop)
+{
+  cout << "\n" << GetNameOfEntity(cop->ID()) << ": Where'd I park the squad car?";
+}
+
+
+void Chill::Execute(Cops* cop)
+{
+  switch(RandInt(0,2))
+  {
+  case 0:
+
+    cout << "\n" << GetNameOfEntity(cop->ID()) << ": Let's hit the donut shop";
+
+    break;
+
+  case 1:
+
+    cout << "\n" << GetNameOfEntity(cop->ID()) << ": So bored. There should be a robbery or something.";
+
+    break;
+
+  case 2:
+
+    cout << "\n" << GetNameOfEntity(cop->ID()) << ": I can't wait to get off work";
+
+    break;
+  }
+}
+
+void Chill::Exit(Cops* cop)
+{
+}
+
+bool Chill::OnMessage(Cops* cop, const Telegram& msg)
 {
   return false;
 }
