@@ -26,8 +26,8 @@ int main()
   for (int i=0; i<20; ++i)
   { 
     robber.Update();
-    cop.Update();
     teller.Update();
+	cop.Update();
 
     Sleep(800);
   }
