@@ -12,10 +12,6 @@ std::ofstream os;
 
 int main()
 {
-//define this to send output to a text file (see locations.h)
-#ifdef TEXTOUTPUT
-  os.open("output.txt");
-#endif
 
   //create a robber
   Robber robber(ent_Robber);
