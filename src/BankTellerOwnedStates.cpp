@@ -53,12 +53,8 @@ BankTellerGlobalState* BankTellerGlobalState::Instance()
 
 void BankTellerGlobalState::Execute(BankTeller* teller)
 {
-  //1 in 10 chance of needing to do this
-  //if ( (RandFloat() < 0.1) &&
-       //!teller->GetFSM()->isInState(*BankTellerState::Instance()) )
-  //{
-    //teller->GetFSM()->ChangeState(BankTellerState::Instance());
-  //}
+  
+    teller->GetFSM()->ChangeState(BankTellerDoingBankThings::Instance());
 }
 
 bool BankTellerGlobalState::OnMessage(BankTeller* teller, const Telegram& msg)

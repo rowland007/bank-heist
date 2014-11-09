@@ -22,7 +22,7 @@ int main()
   //create bank tellers
   BankTeller teller(ent_Teller);
 
-  //run Bob and Elsa through a few Update calls
+  //run through a few Update calls
   for (int i=0; i<20; ++i)
   { 
     robber.Update();

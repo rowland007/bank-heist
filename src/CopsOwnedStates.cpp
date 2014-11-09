@@ -148,7 +148,7 @@ void CaughtRobber::Enter(Cops* cop)
 
 
   Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY,   //time delay
-                                pCops->ID(),        //ID of sender
+                                cop->ID(),        //ID of sender
                                 ent_Robber,         //ID of recipient
                                 Msg_StopPolice,     //the message
                                 NO_ADDITIONAL_INFO);

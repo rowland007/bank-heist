@@ -114,6 +114,7 @@ bool EnterBankAndRobTellers::OnMessage(Robber* pRobber, const Telegram& msg)
   {
 	  pRobber->GetFSM()->ChangeState(GotCaughtAndGoToJail::Instance());
   }
+  }
   return false;
 }
 
@@ -212,7 +213,7 @@ void GotCaughtAndGoToJail::Exit(Robber* pRobber)
   //wait for a keypress before exiting
   PressAnyKeyToContinue();
 
-  return 0;
+  exit(0);
 }
 
 
